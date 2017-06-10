@@ -4,9 +4,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var index = require('./routes/index');
-var users = require('./routes/users');
+var api = require('./api')
 
 var app = express();
 
@@ -34,6 +32,7 @@ app.use(require('node-sass-middleware')({
   }
 }));
 
+app.use(/\/api/,api);
 
 app.get(/^\/([a-z0-9-_]*)\/?$/i,function(req,res){
   var targetUrl = req.params[0];
