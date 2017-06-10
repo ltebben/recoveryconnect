@@ -39,6 +39,7 @@ router.get('/connect',function(req,res){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);
         User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}, connected: false}, function(err){
             if(err){
+                // If can't find a match with no connections, allow for multiple connections
                 User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}}, function(err){
                 
                 });
@@ -53,7 +54,8 @@ router.get('/connect',function(req,res){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()-1);
         User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}, connected: false}, function(err){
             if(err){
-                User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}}, function(err){
+                // If can't find a match with no connections, allow for multiple connections
+                User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}}, function(err){
                 
                 });
             }
