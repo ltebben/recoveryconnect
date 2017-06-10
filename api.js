@@ -11,4 +11,9 @@ router.get('/',function(req,res){
     res.send(resObj);
 });
 
+router.get('/connect',function(req,res){
+    
+});
+
+
 module.exports = router;
