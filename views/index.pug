@@ -2,13 +2,15 @@ extends layout
 
 block content
   div.gridContainer
-    div.intro RecoveryConnect is a way for you to find a community to help support you through recovery. 
-    div.start
-      a(href="/start") Let's go!
-      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    div.intro
+      h1 RecoveryConnect
+      p RecoveryConnect is a way for you to find a community to help support you through recovery. Get support from a network of people who have been through the recovery process. 
+    a(href="/start") Let's go!
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
 
 block append head
   link(rel="stylesheet", href="client.css")
+  link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
   <script src="https://apis.google.com/js/platform.js" async defer></script>
   <meta name="google-signin-client_id" content="759496190112-ouf5971sqnmki2u1ph44oullfqn480cc.apps.googleusercontent.com">
   script(type="text/javascript", src="/js/client.js")

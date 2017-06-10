@@ -18,10 +18,8 @@ mongoose.connect(env.MONGO_URL, function(err){
     console.log('no errors in mongo connection!');
   }
 })
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error: '))
-db.once('open', function(){
-
+mongoose.connection.on('error', function() {
+  console.error('✗ MongoDB Connection Error. Please make sure MongoDB is running.');
 })
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
