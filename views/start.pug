@@ -1,7 +1,23 @@
 extends layout
 
 block content
-    div.splash Let's go!
+    h1 Get Started
+    div.field
+        p First, sign in with Google.
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
+        form.signup.hide(action="lookup" method="post")
+            label(for="fname") First Name: 
+                input(type="text", name="fname")
+            label(for="age") Age: 
+                input(type="text", name="age")
+            label(for="gender") Gender:
+                input(type="text", name="gender")
+            label(for="neighborhood") neighborhood:
+                input(type="text", name="neighborhood")
 
 block append head
     link(rel="stylesheet", href="start.css")
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="759496190112-ouf5971sqnmki2u1ph44oullfqn480cc.apps.googleusercontent.com">
+    script(type="text/javascript", src="/js/client.js")
+    link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")

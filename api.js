@@ -19,14 +19,46 @@ router.get('/',function(req,res){
 
 router.use('/signup', function(req,res){
     User.firstname = req.user.firstName;
+    User.middleInitial = req.user.middleInitial;
     User.neighborhood = req.user.neighborhood;
     User.gender = req.user.gender;
     User.age = req.user.age;
-    User.status = req.user.status;
+    User.pre('save', (next) => {
+        this.sobriety_date = Date(req.user.sobriety_year, req.user.sobriety_month);
+        next()
+    })
 });
 
 router.get('/connect',function(req,res){
-    
+    var _neighborhood = req.user.neighborhood;
+    var _gender = req.user.gender;
+    var _age = req.user.age;
+    var _sobriety_date = new Date(req.user.sobriety_year, req.user.sobriety_month);
+
+    if(_sobriety_date.getYear() - Date.now.getYear() < 1){
+        var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);
+        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}, connected: false}, function(err){
+            if(err){
+
+            }
+            else{
+                User.connected = true;
+                req.user.connected = true;
+            }
+        })
+    }
+    else{
+        var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()-1);
+        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}, connected: false}, function(err){
+            if(err){
+
+            }
+            else{
+                User.connected = true;
+                req.user.connected = true;
+            }
+        }) 
+    }
 });
 
 //checks if user exists in db already. if not, prompts for data
