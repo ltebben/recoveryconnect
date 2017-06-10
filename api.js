@@ -33,7 +33,7 @@ router.get('/connect',function(req,res){
 
     if(_sobriety_date.getYear() - Date.now.getYear() < 1){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);
-        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}}, function(err){
+        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}, connected: false}, function(err){
             if(err){
 
             }
@@ -45,7 +45,7 @@ router.get('/connect',function(req,res){
     }
     else{
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()-1);
-        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}}, function(err){
+        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}, connected: false}, function(err){
             if(err){
 
             }
