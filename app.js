@@ -1,7 +1,9 @@
+var env = require('./env')
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var sassMiddleware = require('node-sass-middleware');
@@ -11,6 +13,19 @@ var users = require('./routes/users');
 
 var app = express();
 
+// Connect to DB
+mongoose.connect(env.MONGO_URL, function(err){
+  if(err){
+    console.log(`mongo had an error :(. error was : ${err}`);
+  }else {
+    console.log('no errors in mongo connection!');
+  }
+})
+var db = mongoose.connection;
+db.on('error', console.error.bind(console, 'connection error: '))
+db.once('open', function(){
+
+})
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
