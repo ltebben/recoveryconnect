@@ -1,3 +1,44 @@
+html{
+    background-image: url("images/background.jpeg");
+    background-position: right bottom;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-size: 100% auto;
+    font-family: Roboto;
+    font-weight: 100;
+    color: #ffffff;
+}
+
+body {
+    width: 95%;
+    margin-left: 3rem;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+div.field {
+    background-color: rgba(100, 100, 100, 0.5);
+    max-width: 40rem;
+    padding: 1rem;
+}
+
+div.field p {
+    font-size: 1rem;
+}
+
 .splash {
     font-size: 4rem;
+}
+
+.signup {
+    margin: 1rem;
+    border: 2px solid grey;
+    padding: 1.5rem;
+}
+
+.signup input {
+    display: block;
+    margin: 1rem;
 }
