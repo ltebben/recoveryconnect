@@ -23,7 +23,10 @@ router.use('/signup', function(req,res){
     User.neighborhood = req.user.neighborhood;
     User.gender = req.user.gender;
     User.age = req.user.age;
-    User.sobriety_date = req.user.sobriety_date;
+    User.pre('save', (next) => {
+        this.sobriety_date = Date(req.user.sobriety_year, req.user.sobriety_month);
+        next()
+    })
 });
 
 router.get('/connect',function(req,res){

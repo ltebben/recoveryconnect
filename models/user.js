@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
     age: Number,
     sobriety_year: Number,
     sobriety_month: Number,
-    sobriety_date: new Date(sobriety_year, sobriety_month),
+    sobriety_date: Date,
     connected: Boolean
 });
 
