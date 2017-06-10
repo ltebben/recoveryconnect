@@ -29,7 +29,7 @@ router.get('/connect',function(req,res){
     var _neighborhood = req.user.neighborhood;
     var _gender = req.user.gender;
     var _age = req.user.age;
-    var _sobriety_date = new Date(req.user.sobriety_date);
+    var _sobriety_date = new Date(req.user.sobriety_year, req.user.sobriety_month);
 
     if(_sobriety_date.getYear() - Date.now.getYear() < 1){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);

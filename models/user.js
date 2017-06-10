@@ -6,7 +6,8 @@ var userSchema = new mongoose.Schema({
     neighborhood: String,
     gender: String,
     age: Number,
-    sobriety_date: Date(),
+    sobriety_year: Number,
+    sobriety_month: Number,
     connected: Boolean
 });
 
