@@ -21,7 +21,12 @@ router.use('/signup', function(req,res){
 });
 
 router.get('/connect',function(req,res){
-    
+    var _neighborhood = req.user.neighborhood;
+    var _gender = req.user.gender;
+    var _age = req.user.age;
+    var _status = req.user.status;
+
+    User.find({neighborhood: _neighborhood, gender: _gender, age: {$gte: _age}, status: {$gte: _status}})
 });
 
 
