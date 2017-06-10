@@ -11,13 +11,9 @@ function onSignIn(user){
         xhr.open('POST', 'http://localhost:3000/api/exists');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
-<<<<<<< HEAD
-            console.log('Signed in as: ' + xhr.responseText);
-=======
             if(xhr.responseText == "exists"){
                // document.querySelector('form.signup').classList.remove('hide');
             }
->>>>>>> 9e580467b6918ad2c8df4e3e443ab16d46747343
         };
         xhr.send('idtoken=' + id_token);
     //}
