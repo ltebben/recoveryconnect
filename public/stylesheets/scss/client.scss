@@ -1,9 +1,12 @@
 html{
     background-image: url("images/background.jpeg");
-    background-position: right bottom;
+    background-position: bottom right;
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100% auto;
+    @media screen and (max-width: 1150px){
+    background-size: auto 100%;
+    }
     font-family: Roboto;
 }
 
