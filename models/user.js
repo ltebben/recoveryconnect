@@ -6,7 +6,8 @@ var userSchema = new mongoose.Schema({
     neighborhood: String,
     gender: String,
     age: Number,
-    status: String 
+    sobriety_date: Date(),
+    connected: Boolean
 });
 
 module.exports = mongoose.model("User", userSchema);

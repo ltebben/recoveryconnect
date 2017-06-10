@@ -4,20 +4,16 @@ html{
     background-attachment: fixed;
     background-repeat: no-repeat;
     background-size: 100% auto;
+    
 }
 
+
+
 div.gridContainer {
-    width: 95%;
-    margin: auto;
-    min-height: fit-content;
-    max-height: fit-content;
-    position: absolute;
-    top: 0; left: 0; bottom: 0; right: 0;
-    background-color: rgba(256, 256, 256, 0.5);
     font-family: Roboto;
 }
 
-div.gridContainer a {
+div.intro a {
     opacity: 1;
     display: flex;
     background-color: #E27033;
@@ -34,10 +30,33 @@ div.gridContainer a {
 div.intro {
     margin-left: 1rem;
     margin-right: 1rem;
+
+    position: absolute;
+    left: 3rem;
+    width: 30rem;
+    margin: auto;
+    min-height: fit-content;
+    max-height: fit-content;
+    position: absolute;
+    top: 0; left: 0; bottom: 0; right: 0;
+    background-color: rgba(256, 256, 256, 0.5);
+    padding: 2rem;
 }
 
 div.intro h1 {
     margin-bottom: 1rem;
     font-weight: 100;
     font-size: 2.2rem;
+}
+
+.signup {
+    margin: 1rem;
+    border: 2px solid grey;
+    padding: 1.5rem;
+}
+
+.signup input {
+    display: block;
+    margin: 1rem;
+    
 }

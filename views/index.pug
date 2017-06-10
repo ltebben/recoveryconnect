@@ -5,8 +5,23 @@ block content
     div.intro
       h1 RecoveryConnect
       p RecoveryConnect is a way for you to find a community to help support you through recovery. Get support from a network of people who have been through the recovery process. 
-    a(href="/start") Let's go!
+      a(href="/start") Let's go!
+      <div class="g-signin2" data-onsuccess="onSignIn"></div>
+      form.signup.hide(action="lookup" method="post")
+        label(for="fname") First Name: 
+          input(type="text", name="fname")
+        label(for="lname") Last Name:
+          input(type="text", name="lname")
+        label(for="age") Age: 
+          input(type="text", name="age")
+        label(for="gender") Gender:
+          input(type="text", name="gender")
+
+  
 
 block append head
   link(rel="stylesheet", href="client.css")
   link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
+  <script src="https://apis.google.com/js/platform.js" async defer></script>
+  <meta name="google-signin-client_id" content="759496190112-ouf5971sqnmki2u1ph44oullfqn480cc.apps.googleusercontent.com">
+  script(type="text/javascript", src="/js/client.js")
