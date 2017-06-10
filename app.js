@@ -27,10 +27,20 @@ app.use(sassMiddleware({
   indentedSyntax: true, // true = .sass and false = .scss
   sourceMap: true
 }));
+
+
+app.get(/^\/([a-z0-9-_]*)\/?$/i,function(req,res){
+  var targetUrl = req.params[0];
+  
+  res.render(`${targetUrl}`,{
+    "title": targetUrl
+  });
+
+});
+
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', index);
-app.use('/users', users);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
