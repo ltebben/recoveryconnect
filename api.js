@@ -31,28 +31,55 @@ router.get('/connect',function(req,res){
 
 //checks if user exists in db already. if not, prompts for data
 router.use('/exists',function(req,res){
-    console.log(`req.body: ${req.body.token}`);
+
     //extract the id_token from request
-    var token = req.body.token;
-    console.log(`token: ${token}`);
+    var token = req.body.idtoken;
 
     //verify id token is valid
-    /*client.verifyIdToken(
-    token,
-    env.GOOGLE_CLIENT_ID,
-    function(e, login) {
-      var payload = login.getPayload();
-      var userid = payload['sub'];
-      // If request specified a G Suite domain:
-      //var domain = payload['hd'];
-    });
-    */
+    userIsValid(token);
 
-    //lookup token in db
-    res.send('received');
+    var isValid = new Promise(function(resolve, reject){
+        
+    });
+
+    //check if user is in the DB
+    //userExists();
+
+    //if so, return 'exists'
+    //res.send('exists');
 
 });
 
+function userIsValid(token){
+    client.verifyIdToken(
+        token,
+        env.GOOGLE_CLIENT_ID,
+        function(e, login) {
+            if(!e){
+                var payload = login.getPayload();
+                var userid = payload['sub'];
+                //lookup token in db
+                if(userExists(userId)){
+                    res.send('exists');
+                }else{
+                    res.send('user not found');
+                }
+
+            }else{  
+                console.log('e: ' + e);
+                res.send(e.message);
+            }
+        });
+}
+
+function userExists(userId){
+    var user = User.find({user_id:userId});
+    if(user){
+        return true;
+    }else{
+        return false;
+    }
+}
 
 
 

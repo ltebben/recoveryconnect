@@ -11,11 +11,12 @@ function onSignIn(user){
         xhr.open('POST', 'http://localhost:3000/api/exists');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
+            alert('response: ' + xhr.responseText);
             if(xhr.responseText == "exists"){
-               // document.querySelector('form.signup').classList.remove('hide');
+                document.querySelector('form.signup').classList.remove('hide');
             }
         };
-        xhr.send('idtoken=' + id_token);
+        xhr.send('idtoken=' + 'id_token');
     //}
 }
 
