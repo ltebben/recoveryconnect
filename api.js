@@ -19,6 +19,7 @@ router.get('/',function(req,res){
 
 router.use('/signup', function(req,res){
     User.firstname = req.user.firstName;
+    User.middleInitial = req.user.middleInitial;
     User.neighborhood = req.user.neighborhood;
     User.gender = req.user.gender;
     User.age = req.user.age;
