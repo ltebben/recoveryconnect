@@ -102,7 +102,7 @@ router.use('/dashboard',function(req,res){
     msgs.sort(function(a,b){
         return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
     })
-    res.render('/message', {partner: req.partner.firstName, messages: msgs})
+    res.render('/dashboard', {partner: req.partner.firstName, messages: msgs})
 })
 
 //checks if user exists in db already. if not, prompts for data
