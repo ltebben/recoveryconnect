@@ -110,40 +110,26 @@ router.use('/exists',function(req,res){
 
     //extract the id_token from request
     var token = req.body.id_token;
+    //req.session.id = token;
 
-    if(userExists(token) == true){
-        res.send('exists');
-    }else{
-        res.send('not found');
-    }
+    userExists(token,res);
 
 });
 
 //takes a user id token and checks if it's in the db
 //if in the db, returns true, else false.
-function userExists(userId){
+function userExists(userId,res){
     console.log('id: ' + userId);
     var query = User.find({user_id:userId});
     var promise = query.exec();
     var retVal = promise.then(function(data){
-        return data;
-    });
-    
-    return (JSON.stringify(retVal).length > 5);
-
-    /*promise.then(function(docs){
-        console.log('docs: ' + JSON.stringify(docs));
-        if(docs.length > 0){
-            return false;
+        console.log('data: ' + JSON.stringify(data));
+        if(JSON.stringify(data).length > 3){
+            res.send('exists');
         }else{
-            return true;
+            res.send('not found');
         }
-    });*/
-
-    //console.log('retVal: ' + JSON.stringify(retVal));
-    //return retVal;
-    
-   
+    });    
 }
 
 module.exports = router;
