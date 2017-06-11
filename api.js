@@ -18,22 +18,42 @@ router.get('/',function(req,res){
 
 
 router.use('/signup', function(req,res){
-    User.firstname = req.user.firstName;
-    User.middleInitial = req.user.middleInitial;
-    User.neighborhood = req.user.neighborhood;
-    User.gender = req.user.gender;
-    User.age = req.user.age;
-    User.pre('save', (next) => {
-        this.sobriety_date = Date(req.user.sobriety_year, req.user.sobriety_month);
-        next()
-    })
+    var newUser = new User({
+        user_id: req.user_id,
+        firstname : req.firstName,
+        middleInitial : req.middleInitial,
+        neighborhood : req.neighborhood,
+        gender : req.gender,
+        age : req.age,
+        sobriety_date : Date(req.sobriety_year, req.sobriety_month)
+    });
+
+    var saved = new Promise(function(resolve,reject){
+            newUser.save(function(err){
+            if(!err){
+                resolve('saved');
+                //res.render('dashboard');
+            }else{
+                resolve('did not save');
+            }
+        });
+    });
+
+    saved.then(function(result){
+        if(result == 'saved'){
+            res.send('saveew');
+        }else{
+            res.send('femk')
+        }
+    });
+
 });
 
 router.get('/connect',function(req,res){
-    var _neighborhood = req.user.neighborhood;
-    var _gender = req.user.gender;
-    var _age = req.user.age;
-    var _sobriety_date = new Date(req.user.sobriety_year, req.user.sobriety_month);
+    var _neighborhood = req.neighborhood;
+    var _gender = req.gender;
+    var _age = req.age;
+    var _sobriety_date = new Date(req.sobriety_year, req.sobriety_month);
 
     if(_sobriety_date.getYear() - Date.now.getYear() < 1){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);
@@ -43,7 +63,7 @@ router.get('/connect',function(req,res){
             }
             else{
                 User.connected = true;
-                req.user.connected = true;
+                req.connected = true;
             }
         })
     }

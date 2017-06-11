@@ -5,15 +5,21 @@ block content
     div.field
         p First, sign in with Google.
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
-        form.signup.hide(action="lookup" method="post")
+        form.signup(action="/api/signup" method="post")
+            input.hide(type="text",name="user_id", value="")
             label(for="fname") First Name: 
                 input(type="text", name="fname")
             label(for="age") Age: 
                 input(type="text", name="age")
             label(for="gender") Gender:
                 input(type="text", name="gender")
-            label(for="neighborhood") neighborhood:
+            label(for="neighborhood") Neighborhood:
                 input(type="text", name="neighborhood")
+            label(for="sobrmnth") Sobriety Month: 
+                input(type="text", name="sobriety_month")
+            label(for="sobryr") Sobriety Year: 
+                input(type="text", name="sobriety_year")
+            input(type="submit", value="Sign Up!")
 
 block append head
     link(rel="stylesheet", href="start.css")

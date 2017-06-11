@@ -2,6 +2,10 @@ function onSignIn(user){
     var profile = user.getBasicProfile();
     var id_token = user.getAuthResponse().id_token;
    
+   //put the google id into the form
+    var idInput = document.querySelector('input[name="user_id"]');
+    idInput.setAttribute("value",id_token);
+
     //check if the user exists, if not, need to prompt for info
     //if(fetch){
         //ask api if user exists
