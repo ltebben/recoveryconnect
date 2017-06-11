@@ -191,17 +191,32 @@ router.use('/sendMessage',function(req,res){
     console.log(`got msg post with:
         email: ${req.body.email}
         msg: ${req.body.message}
-    `)
+    `);
     var recipient = User.find({user_id: req.body.email});
     console.log('a');
     var promise = recipient.exec();
     console.log('gothere');
     promise.then(function(data){
-        console.log('called back!');
+        console.log(data)
         if(JSON.stringify(data).length > 3){
+            var partner_email = data.partner;
+            console.log(partner_email)
+            var p_query = User.findOne({ user_id:partner_email });
+            var p_promise = p_query.exec();
+            p_promise.then(function (data2) {
+                if (JSON.stringify(data2).length > 3) {
+                    var p_received_msgs = { message: data2.posted_message, date: Date};
+                    console.log("made it here")
+                    p_received_msgs.concat(req.body.message)
+                    res.render('dashboard', { partner: data.firstName, messages: p_received_msgs });
+                  } else {
+                    console.log('No messages found');
+                }
+            });
             //data.received_messages.concat(req.body.message);
             res.send('success');
         }else{
+            console.log("no user")
             res.send('not found');
         }
     });  

@@ -7,6 +7,7 @@ body {
 }
 
 div.header{
+    box-shadow: 0px 0px 1px 1px #222222;
     width: 100%;
     max-height: fit-content;
     background-color: #14aeae;
@@ -31,7 +32,7 @@ div.dash h2 {
     text-align: center;
     background-color: #14aeae;
     padding: 1rem;
-    margin-bottom: 0;
+    margin-bottom: 0.5rem;
     color: #ffffff;
     font-weight: 100;
 }
@@ -49,7 +50,8 @@ div.blankfornow {
 }
 
 div.column {
-    padding-top: 0.5rem;
+    box-shadow: 0px 0px 1px 1px #222222;
+    padding-top: 0rem;
     padding-bottom: 0.1rem;
     background-color: #ffffff;
 }
