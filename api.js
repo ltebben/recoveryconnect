@@ -103,7 +103,7 @@ router.use('/dashboard',function(req,res){
         if(JSON.stringify(data).length > 3){
             var sent_msgs = data.posted_message;
             sent_msgs.forEach(function(me){
-                 me.sender = data.firstName;
+                 me.sender = "me";
             });
             console.log(sent_msgs)
             var partner_email = data.partner;
