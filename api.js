@@ -18,15 +18,17 @@ router.get('/',function(req,res){
 
 
 router.use('/signup', function(req,res){
+    
     var newUser = new User({
-        user_id: req.user_id,
-        firstname : req.firstName,
-        middleInitial : req.middleInitial,
-        neighborhood : req.neighborhood,
-        gender : req.gender,
-        age : req.age,
-        sobriety_date : Date(req.sobriety_year, req.sobriety_month)
+        user_id: req.body.user_id,
+        firstname : req.body.firstName,
+        middleInitial : req.body.middleInitial,
+        neighborhood : req.body.neighborhood,
+        gender : req.body.gender,
+        age : parseInt(req.body.age),
+        sobriety_date : Date(parseInt(req.body.sobriety_year), parseInt(req.body.sobriety_month))
     });
+    
 
     var saved = new Promise(function(resolve,reject){
             newUser.save(function(err){
@@ -42,8 +44,10 @@ router.use('/signup', function(req,res){
     saved.then(function(result){
         if(result == 'saved'){
             res.send('saveew');
-        }else{
+        }else if('did not save'){
             res.send('femk')
+        } else {
+            res.send('ruffalo');
         }
     });
 
