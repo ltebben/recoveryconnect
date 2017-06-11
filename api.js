@@ -75,10 +75,11 @@ router.get('/connect',function(req,res){
 router.use('/message',function(req,res){
     var sent_msgs = req.user.posted_messages;
     var received_msgs = req.user.partner.posted_messages;
-    var messages = sent_msgs + received_msgs;
-    res.messages.sort(function(a,b){
+    var msgs = sent_msgs + received_msgs;
+    msgs.sort(function(a,b){
         return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
     })
+    res.render('/message', {partner: req.partner.firstName, messages: msgs})
 })
 
 //checks if user exists in db already. if not, prompts for data
