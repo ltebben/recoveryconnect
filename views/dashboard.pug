@@ -15,12 +15,16 @@ block content
     div.conversation
       div.column
         h2 Your Conversation
-        p Send a message:
-        div.messaging
-          input.recipientBox(type="text")
-          textarea.msgBox(type="textarea")
-          button.sendMessage Send!
-        p.hist Conversation history:
+        p(style="padding: 0.5rem;") Send a message:
+        div.messaging(style="padding: 1rem;")
+          label(for="recipient") Recipient:
+            input.recipientBox(type="text", name="recipient")
+          br
+          br
+          label(for="message") Message:
+            textarea.msgBox(type="textarea", name="message" style="padding-top: 1rem")
+          a.sendMessage Send!
+        p.hist(style="padding: 1rem;") Conversation history:
         table
           tr.heading
             th Sender
