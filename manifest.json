@@ -1,0 +1,13 @@
+{
+  "short_name": "RecoveryConnect",
+  "name": "RecoveryConnect",
+  "icons": {
+    "16": "/images/favicon-16x16.png",
+    "48": "/images/android-icon-48x48.png",
+    "144": "/images/android-icon-144x144.png"
+  },
+  "start_url": "",
+  "background_color": "white",
+  "Theme_color": "#14aeae",
+  "display": ""
+}

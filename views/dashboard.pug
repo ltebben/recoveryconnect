@@ -20,6 +20,10 @@ block content
             tr
               td= val.date
               td= val.message
+          tr.messaging
+            input.recipientBox(type="text")
+            input.msgBox(type="textarea")
+            button.sendMessage Send!
     div.blankfornow
       h2 Placeholder
       div.column
