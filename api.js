@@ -188,11 +188,23 @@ router.use('/exists',function(req,res){
 });
 
 router.use('/sendMessage',function(req,res){
-    var recipient = User.find({user_id: req.email});
+    var recipient = User.find({user_id: req.body.email});
     var promise = recipient.exec();
     promise.then(function(data){
         if(JSON.stringify(data).length > 3){
-            data.received_messages.concat(req.message);
+            var partner_email = data.partner;
+            var p_query = User.findOne({ user_id:partner_email });
+            var p_promise = p_query.exec();
+            p_promise.then(function (data2) {
+                if (JSON.stringify(data2).length > 3) {
+                    var p_received_msgs = data2.posted_message;
+                    p_received_msgs.concat(req.body.message)
+                    res.render('dashboard', { partner: data.firstName, messages: p_received_msgs });
+                  } else {
+                    console.log('No messages found');
+                }
+            });
+            //data.received_messages.concat(req.body.message);
         }else{
             res.send('not found');
         }
