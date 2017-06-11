@@ -187,6 +187,18 @@ router.use('/exists',function(req,res){
 
 });
 
+router.use('/sendMessage',function(req,res){
+    var recipient = User.find({user_id: req.email});
+    var promise = recipient.exec();
+    promise.then(function(data){
+        if(JSON.stringify(data).length > 3){
+            data.received_messages.concat(req.message);
+        }else{
+            res.send('not found');
+        }
+    });    
+});
+
 //takes a user id token and checks if it's in the db
 //if in the db, returns true, else false.
 function userExists(userId,res){
