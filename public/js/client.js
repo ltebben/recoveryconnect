@@ -12,10 +12,10 @@ function onSignIn(user){
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
         xhr.onload = function() {
             if(xhr.responseText == "exists"){
-                document.querySelector('form.signup').classList.remove('hide');
+                document.querySelector('form.signup').classList.add('hide');
             }
         };
-        xhr.send('idtoken=' + 'id_token');
+        xhr.send('idtoken=' + id_token);
     //}
 }
 

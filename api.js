@@ -67,52 +67,53 @@ router.use('/exists',function(req,res){
     //extract the id_token from request
     var token = req.body.idtoken;
 
-    //verify id token is valid
-    userIsValid(token);
-
-    var isValid = new Promise(function(resolve, reject){
-        
-    });
-
-    //check if user is in the DB
-    //userExists();
-
-    //if so, return 'exists'
-    //res.send('exists');
+    if(userExists(token) == true){
+        res.send('exists');
+    }else{
+        res.send('not found');
+    }
 
 });
 
-function userIsValid(token){
-    client.verifyIdToken(
-        token,
-        env.GOOGLE_CLIENT_ID,
-        function(e, login) {
-            if(!e){
-                var payload = login.getPayload();
-                var userid = payload['sub'];
-                //lookup token in db
-                if(userExists(userId)){
-                    res.send('exists');
-                }else{
-                    res.send('user not found');
-                }
 
-            }else{  
-                console.log('e: ' + e);
-                res.send(e.message);
-            }
-        });
-}
-
+//takes a user id token and checks if it's in the db
+//if in the db, returns true, else false.
 function userExists(userId){
     var user = User.find({user_id:userId});
-    if(user){
+    console.log('user: ' + user.toString());
+
+    if(user.firstName){
         return true;
     }else{
         return false;
     }
 }
 
-
-
 module.exports = router;
+
+//takes the user token and checks if its valid using google auth api
+//returns true if valid and false otherwise
+/*
+function userIsValid(token){
+        client.verifyIdToken(
+        token,
+        env.GOOGLE_CLIENT_ID,
+        function(e, login) {
+            return new Promise(function(resolve,reject){
+                if(!e){
+                var payload = login.getPayload();
+                var userid = payload['sub'];
+
+                //var exists = userExists(token);
+                console.log('exists: ' + exists);
+
+                resolve(true);
+
+                }else{  
+                    resolve(false);
+                }
+            });
+        });
+        resolve('lool');    
+}
+*/
