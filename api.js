@@ -59,11 +59,16 @@ router.get('/connect',function(req,res){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);
         User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}, connected: false}, function(err){
             if(err){
-
+                // If can't find a match with no connections, allow for multiple connections
+               /* User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}}, function(err){
+                
+                });*/
             }
             else{
                 User.connected = true;
+                User.partner = req.user_id;
                 req.connected = true;
+                req.partner = User.user_id;
             }
         })
     }
@@ -71,15 +76,30 @@ router.get('/connect',function(req,res){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()-1);
         User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}, connected: false}, function(err){
             if(err){
-
+                // If can't find a match with no connections, allow for multiple connections
+               /* User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}}, function(err){
+                
+                });*/
             }
             else{
                 User.connected = true;
-                req.user.connected = true;
+                User.partner = req.user_id;
+                req.connected = true;
+                req.partner = User.user_id;
             }
         }) 
     }
 });
+
+router.use('/message',function(req,res){
+    var sent_msgs = req.user.posted_messages;
+    var received_msgs = req.user.partner.posted_messages;
+    var msgs = sent_msgs + received_msgs;
+    msgs.sort(function(a,b){
+        return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+    })
+    res.render('/message', {partner: req.partner.firstName, messages: msgs})
+})
 
 //checks if user exists in db already. if not, prompts for data
 router.use('/exists',function(req,res){
