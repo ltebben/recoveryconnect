@@ -57,7 +57,7 @@ router.get('/connect',function(req,res){
 
     if(_sobriety_date.getYear() - Date.now.getYear() < 1){
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()+1);
-        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}, connected: false}, function(err){
+        var match = User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}, connected: false}, function(err){
             if(err){
                 // If can't find a match with no connections, allow for multiple connections
                /* User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$gt: _age}, sobriety_date: {$gte: desired_date}}, function(err){
@@ -65,16 +65,16 @@ router.get('/connect',function(req,res){
                 });*/
             }
             else{
-                User.connected = true;
-                User.partner = req.user_id;
+                match.connected = true;
+                match.partner = req.user_id;
                 req.connected = true;
-                req.partner = User.user_id;
+                req.partner = match.user_id;
             }
         })
     }
     else{
         var desired_date = new Date(_sobriety_date.getMonth(), _sobriety_date.getFullYear()-1);
-        User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}, connected: false}, function(err){
+        var match = User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}, connected: false}, function(err){
             if(err){
                 // If can't find a match with no connections, allow for multiple connections
                /* User.findOne({neighborhood: _neighborhood, gender: _gender, age: {$lt: _age}, sobriety_date: {$lte: desired_date}}, function(err){
@@ -82,10 +82,10 @@ router.get('/connect',function(req,res){
                 });*/
             }
             else{
-                User.connected = true;
-                User.partner = req.user_id;
+                match.connected = true;
+                match.partner = req.user_id;
                 req.connected = true;
-                req.partner = User.user_id;
+                req.partner = match.user_id;
             }
         }) 
     }
