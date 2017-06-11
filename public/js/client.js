@@ -15,10 +15,11 @@ function onSignIn(user){
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:3000/api/exists');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.withCredentials = true;
         xhr.onload = function() {
             if(xhr.responseText == "exists"){
                 document.querySelector('form.signup').classList.add('hide');
-                window.location.href = '/dashboard'
+                window.location.href = '/api/dashboard'
             }
         };
         xhr.send('id_token=' + id_token);

@@ -97,13 +97,27 @@ router.get('/connection',function(req,res){
 });
 
 router.use('/dashboard',function(req,res){
-    var sent_msgs = req.body.posted_messages;
-    var received_msgs = req.body.partner.posted_messages;
-    var msgs = sent_msgs + received_msgs;
-    msgs.sort(function(a,b){
-        return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-    })
-    res.render('/dashboard', {partner: req.partner.firstName, messages: msgs})
+    console.log("id: " + req.session.email)
+    var query = User.findOne({user_id:req.session.email});
+    var promise = query.exec();
+    var retVal = promise.then(function(data){
+        console.log('data in dashboard: ' + JSON.stringify(data));
+        if(JSON.stringify(data).length > 3){
+            console.log("hello")
+            var sent_msgs = data.posted_message;
+            console.log("second")
+            //var received_msgs = data.partner.posted_messages;
+            //var msgs = sent_msgs + received_msgs;
+            //console.log("medium hello")
+            //msgs.sort(function(a,b){
+            //    return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+            //});
+            console.log("hello again");
+            res.render('dashboard', {messages: sent_msgs});
+        }else{
+            res.send('not found');
+        }
+    });    
 })
 
 //checks if user exists in db already. if not, prompts for data
@@ -111,7 +125,7 @@ router.use('/exists',function(req,res){
 
     //extract the id_token from request
     var token = req.body.id_token;
-    req.session.id = token;
+    req.session.email = token;
 
     userExists(token,res);
 
