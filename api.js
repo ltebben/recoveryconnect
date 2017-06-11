@@ -19,6 +19,48 @@ router.get('/',function(req,res){
 
 router.use('/signup', function(req,res){
     
+    console.log(parseInt(req.body.sobriety_year));
+    var mo;
+    switch(req.body.sobriety_month){
+        case "January":
+            mo = 1;
+            break
+        case "February":
+            mo = 2;
+            break
+        case "March":
+            mo = 3;
+            break
+        case "Arpil":
+            mo = 4;
+            break;
+        case "May":
+            mo = 5;
+            break;
+         case "June":
+            mo = 6;
+            break;
+         case "July":
+            mo = 7;
+            break;
+         case "August":
+            mo = 8;
+            break;
+         case "September":
+            mo = 9;
+            break;
+         case "October":
+            mo = 10;
+            break;
+         case "November":
+            mo = 11;
+            break;
+        case "December":
+            mo = 12;
+            break;        
+    }
+
+    console.log(mo);
     var newUser = new User({
         user_id: req.body.user_id,
         firstName : req.body.firstName,
@@ -26,9 +68,12 @@ router.use('/signup', function(req,res){
         neighborhood : req.body.neighborhood,
         gender : req.body.gender,
         age : parseInt(req.body.age),
-        sobriety_date : Date(req.body.sobriety_year, req.body.sobriety_month)
+        sobriety_year: parseInt(req.body.sobriety_year),
+        sobriety_month: req.body.sobriety_month
     });
     
+    newUser.sobriety_date.setMonth(mo - 1);
+    newUser.sobriety_date.setYear(parseInt(req.body.sobriety_year));
 
     var saved = new Promise(function(resolve,reject){
             newUser.save(function(err){
@@ -105,7 +150,6 @@ router.use('/dashboard',function(req,res){
             sent_msgs.forEach(function(me){
                  me.sender = "me";
             });
-            console.log(sent_msgs)
             var partner_email = data.partner;
             var p_query = User.findOne({ user_id:partner_email });
             var p_promise = p_query.exec();
@@ -141,6 +185,18 @@ router.use('/exists',function(req,res){
 
     userExists(token,res);
 
+});
+
+router.use('/sendMessage',function(req,res){
+    var recipient = User.find({user_id: req.email});
+    var promise = recipient.exec();
+    promise.then(function(data){
+        if(JSON.stringify(data).length > 3){
+            data.received_messages.concat(req.message);
+        }else{
+            res.send('not found');
+        }
+    });    
 });
 
 //takes a user id token and checks if it's in the db

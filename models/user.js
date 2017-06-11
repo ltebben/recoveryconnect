@@ -8,8 +8,8 @@ var userSchema = new mongoose.Schema({
     gender: String,
     age: Number,
     sobriety_year: Number,
-    sobriety_month: Number,
-    sobriety_date: Date,
+    sobriety_month: String,
+    sobriety_date: {type: Date, default: Date.now},
     connected: Boolean,
     partner: String,
     posted_message: [{message: String, date: Date}]
