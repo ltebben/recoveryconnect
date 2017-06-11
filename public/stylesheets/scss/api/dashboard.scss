@@ -50,6 +50,22 @@ div.blankfornow {
 
 div.column {
     padding-top: 0.5rem;
+    padding-bottom: 0.1rem;
     background-color: #ffffff;
+}
+
+div.column a {
+    display: flex;
+    background-color: white;
+    color: #222222;
+    border: 1px solid #E27033;
+    height: 3rem;
+    text-decoration: none;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 0;
+    padding-left: 0.1rem;
+    padding-right: 0.1rem;
+    margin: 5px;
 }
 
