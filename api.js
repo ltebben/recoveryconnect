@@ -188,15 +188,24 @@ router.use('/exists',function(req,res){
 });
 
 router.use('/sendMessage',function(req,res){
-    var recipient = User.find({user_id: req.email});
+    console.log(`got msg post with:
+        email: ${req.body.email}
+        msg: ${req.body.message}
+    `)
+    var recipient = User.find({user_id: req.body.email});
+    console.log('a');
     var promise = recipient.exec();
+    console.log('gothere');
     promise.then(function(data){
+        console.log('called back!');
         if(JSON.stringify(data).length > 3){
-            data.received_messages.concat(req.message);
+            //data.received_messages.concat(req.body.message);
+            res.send('success');
         }else{
             res.send('not found');
         }
-    });    
+    });  
+    console.log('done');  
 });
 
 //takes a user id token and checks if it's in the db

@@ -41,8 +41,8 @@ function sendMessage(msg,recip){
     xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
     xhr.withCredentials = true;
     xhr.onload = function(){
-        //xhr.responseText will hold the response
+        alert(xhr.responseText);
     }
-    xhr.send(`{message=${msg},email=${recip}}`);
+    xhr.send(`message=${msg}&email=${recip}`);
 }
 
