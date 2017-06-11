@@ -1,6 +1,5 @@
 function onSignIn(user){
     var profile = user.getBasicProfile();
-    console.log(JSON.stringify(profile));
     var id_token = profile.getEmail()//user.getAuthResponse().id_token;
    
    //put the google id into the form

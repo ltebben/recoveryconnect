@@ -6,16 +6,17 @@ block content
         p First, sign in with Google.
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
         form.signup(action="/api/signup" method="post")
-            input.hide(type="text",name="user_id", value="")
-            label(for="firstName") First Name: 
+            label(for="user_id") Email:
+                input.hide(type="text",name="user_id", value="")
+            label(for="firstName") First Name:
                 input(type="text", name="firstName")
-            label(for="age") Age: 
+            label(for="age") Age:
                 input(type="text", name="age")
             label(for="gender") Gender:
                 input(type="text", name="gender")
             label(for="neighborhood") Neighborhood:
                 input(type="text", name="neighborhood")
-            label(for="sobrmnth") Sobriety Month: 
+            label(for="sobrmnth") Sobriety Month:
                 input(type="text", name="sobriety_month")
             label(for="sobryr") Sobriety Year: 
                 input(type="text", name="sobriety_year")

@@ -50,7 +50,7 @@ app.use(require('node-sass-middleware')({
 
 app.use(/\/api/,api);
 
-app.get(/^\/([a-z0-9-_]*)\/?$/i,function(req,res){
+app.get(/^\/?([a-z0-9-_]*)\/?$/i,function(req,res){
   var targetUrl = req.params[0];
   
   res.render(`${targetUrl}`,{
