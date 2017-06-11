@@ -12,7 +12,7 @@ var userSchema = new mongoose.Schema({
     sobriety_date: Date,
     connected: Boolean,
     partner: String,
-    posted_message: [{message: String, date: Date()}]
+    posted_message: [{message: String, date: Date}]
 });
 
 module.exports = mongoose.model("User", userSchema);
