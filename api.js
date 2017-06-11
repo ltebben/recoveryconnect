@@ -96,8 +96,8 @@ router.get('/connection',function(req,res){
 });
 
 router.use('/dashboard',function(req,res){
-    var sent_msgs = req.user.posted_messages;
-    var received_msgs = req.user.partner.posted_messages;
+    var sent_msgs = req.body.posted_messages;
+    var received_msgs = req.body.partner.posted_messages;
     var msgs = sent_msgs + received_msgs;
     msgs.sort(function(a,b){
         return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
