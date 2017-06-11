@@ -74,3 +74,35 @@ div.column a {
     height: 10rem;
     display: block;
 }
+
+div.column textarea {
+    width: 97%;
+    display: block;
+    margin: auto;
+    height: 7rem;
+}
+
+div.conversation table {
+    width: 95%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+div.conversation table tr.heading th {
+    border-bottom: 1px solid #222222;
+}
+
+div.conversation table td.message {
+    border-left: 1px solid #222222;
+    padding-bottom: 0.4rem;
+    padding-top: 0.4rem;
+    padding-left: 5px;
+}
+
+div.conversation p {
+    padding-left: 1rem;
+}
+
+div.conversation p.hist {
+    padding-top: 1rem;
+}

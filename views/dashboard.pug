@@ -15,18 +15,26 @@ block content
     div.conversation
       h2 Your Conversation
       div.column
+        p Send a message:
+        textarea
+        a(href="") Send
+        p.hist Conversation history:
         table
+          tr.heading
+            th Sender
+            th Message
           each val in messages
             tr
-              td= val.date
-              td= val.message
+              td= val.sender
+              td.message= val.message
           tr.messaging
             input.recipientBox(type="text")
             input.msgBox(type="textarea")
             button.sendMessage Send!
-    div.blankfornow
-      h2 Placeholder
+    div.progress
+      h2 Progress
       div.column
+        
 
 
 block append head
