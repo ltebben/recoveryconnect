@@ -189,15 +189,19 @@ router.use('/exists',function(req,res){
 
 router.use('/sendMessage',function(req,res){
     var recipient = User.find({user_id: req.body.email});
+    console.log(req.body.email)
     var promise = recipient.exec();
     promise.then(function(data){
+        console.log(data)
         if(JSON.stringify(data).length > 3){
             var partner_email = data.partner;
+            console.log(partner_email)
             var p_query = User.findOne({ user_id:partner_email });
             var p_promise = p_query.exec();
             p_promise.then(function (data2) {
                 if (JSON.stringify(data2).length > 3) {
-                    var p_received_msgs = data2.posted_message;
+                    var p_received_msgs = { message: data2.posted_message, date: Date};
+                    console.log("made it here")
                     p_received_msgs.concat(req.body.message)
                     res.render('dashboard', { partner: data.firstName, messages: p_received_msgs });
                   } else {
@@ -206,6 +210,7 @@ router.use('/sendMessage',function(req,res){
             });
             //data.received_messages.concat(req.body.message);
         }else{
+            console.log("no user")
             res.send('not found');
         }
     });    
