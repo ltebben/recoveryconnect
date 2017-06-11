@@ -1,5 +1,6 @@
 var env = require('./env');
 var express = require('express');
+var session = require('express-session');
 var User = require('./models/user');
 var router = express.Router();
 var GoogleAuth = require('google-auth-library');
@@ -110,7 +111,7 @@ router.use('/exists',function(req,res){
 
     //extract the id_token from request
     var token = req.body.id_token;
-    //req.session.id = token;
+    req.session.id = token;
 
     userExists(token,res);
 

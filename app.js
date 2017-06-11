@@ -6,6 +6,7 @@ var logger = require('morgan');
 var mongoose = require('mongoose')
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var session = require('express-session');
 var api = require('./api')
 
 var app = express();
@@ -31,7 +32,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-
+app.use(session({
+  secret: env.SECRET
+}));
 //load style preprocessing middleware
 app.use(require('node-sass-middleware')({
   root: path.join('public','stylesheets'),
