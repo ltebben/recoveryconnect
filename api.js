@@ -188,8 +188,12 @@ router.use('/exists',function(req,res){
 });
 
 router.use('/sendMessage',function(req,res){
+    console.log(`got msg post with:
+        email: ${req.body.email}
+        msg: ${req.body.message}
+    `);
     var recipient = User.find({user_id: req.body.email});
-    console.log(req.body.email)
+    console.log('a');
     var promise = recipient.exec();
     promise.then(function (data) {
         console.log(data)
@@ -199,11 +203,13 @@ router.use('/sendMessage',function(req,res){
             res.render('dashboard', { partner: data.firstName, messages: data.received_messages });
 
             //data.received_messages.concat(req.body.message);
-        } else {
+            res.send('success');
+        }else{
             console.log("no user")
             res.send('not found');
         }
-    });    
+    });  
+    console.log('done');  
 });
 
 //takes a user id token and checks if it's in the db
