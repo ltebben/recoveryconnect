@@ -53,7 +53,7 @@ router.use('/signup', function(req,res){
 
 });
 
-router.get('/connect',function(req,res){
+router.get('/dashboard',function(req,res){
     var _neighborhood = req.neighborhood;
     var _gender = req.gender;
     var _age = req.age;
