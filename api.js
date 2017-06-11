@@ -53,7 +53,7 @@ router.use('/signup', function(req,res){
 
 });
 
-router.get('/connect',function(req,res){
+router.get('/dashboard',function(req,res){
     var _neighborhood = req.neighborhood;
     var _gender = req.gender;
     var _age = req.age;
@@ -95,14 +95,14 @@ router.get('/connect',function(req,res){
     }
 });
 
-router.use('/message',function(req,res){
+router.use('/dashboard',function(req,res){
     var sent_msgs = req.user.posted_messages;
     var received_msgs = req.user.partner.posted_messages;
     var msgs = sent_msgs + received_msgs;
     msgs.sort(function(a,b){
         return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
     })
-    res.render('/message', {partner: req.partner.firstName, messages: msgs})
+    res.render('/dashboard', {partner: req.partner.firstName, messages: msgs})
 })
 
 //checks if user exists in db already. if not, prompts for data
