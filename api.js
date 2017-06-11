@@ -69,7 +69,7 @@ router.use('/signup', function(req,res){
         gender : req.body.gender,
         age : parseInt(req.body.age),
         sobriety_year: parseInt(req.body.sobriety_year),
-        sobriety_month: req.body.sobriety_month,
+        sobriety_month: req.body.sobriety_month
     });
     
     newUser.sobriety_date.setMonth(mo - 1);
