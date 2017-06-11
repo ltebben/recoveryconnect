@@ -21,7 +21,7 @@ router.use('/signup', function(req,res){
     
     var newUser = new User({
         user_id: req.body.user_id,
-        firstname : req.body.firstName,
+        firstName : req.body.firstName,
         middleInitial : req.body.middleInitial,
         neighborhood : req.body.neighborhood,
         gender : req.body.gender,
@@ -109,7 +109,7 @@ router.use('/message',function(req,res){
 router.use('/exists',function(req,res){
 
     //extract the id_token from request
-    var token = req.body.idtoken;
+    var token = req.body.id_token;
 
     if(userExists(token) == true){
         res.send('exists');
@@ -119,18 +119,31 @@ router.use('/exists',function(req,res){
 
 });
 
-
 //takes a user id token and checks if it's in the db
 //if in the db, returns true, else false.
 function userExists(userId){
-    var user = User.find({user_id:userId});
-    console.log('user: ' + user.toString());
+    console.log('id: ' + userId);
+    var query = User.find({user_id:userId});
+    var promise = query.exec();
+    var retVal = promise.then(function(data){
+        return data;
+    });
+    
+    return (JSON.stringify(retVal).length > 5);
 
-    if(user.firstName){
-        return true;
-    }else{
-        return false;
-    }
+    /*promise.then(function(docs){
+        console.log('docs: ' + JSON.stringify(docs));
+        if(docs.length > 0){
+            return false;
+        }else{
+            return true;
+        }
+    });*/
+
+    //console.log('retVal: ' + JSON.stringify(retVal));
+    //return retVal;
+    
+   
 }
 
 module.exports = router;
