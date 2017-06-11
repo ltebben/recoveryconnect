@@ -95,7 +95,7 @@ router.get('/dashboard',function(req,res){
     }
 });
 
-router.use('/message',function(req,res){
+router.use('/dashboard',function(req,res){
     var sent_msgs = req.user.posted_messages;
     var received_msgs = req.user.partner.posted_messages;
     var msgs = sent_msgs + received_msgs;
