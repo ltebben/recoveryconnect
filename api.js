@@ -27,6 +27,7 @@ router.use('/signup', function(req,res){
         this.sobriety_date = Date(req.user.sobriety_year, req.user.sobriety_month);
         next()
     })
+    User.connected = false;
 });
 
 router.get('/connect',function(req,res){
@@ -62,7 +63,7 @@ router.get('/connect',function(req,res){
                 });*/
             }
             else{
-                 User.connected = true;
+                User.connected = true;
                 User.partner = req.user.firstName + req.user.middleInitial;
                 req.user.connected = true;
                 req.user.partner = User.firstname + User.middleInitial;
@@ -70,6 +71,15 @@ router.get('/connect',function(req,res){
         }) 
     }
 });
+
+router.use('/message',function(req,res){
+    var sent_msgs = req.user.posted_messages;
+    var received_msgs = req.user.partner.posted_messages;
+    var messages = sent_msgs + received_msgs;
+    res.messages.sort(function(a,b){
+        return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
+    })
+})
 
 //checks if user exists in db already. if not, prompts for data
 router.use('/exists',function(req,res){
