@@ -46,7 +46,9 @@ router.get('/connect',function(req,res){
             }
             else{
                 User.connected = true;
+                User.partner = req.user.firstName + req.user.middleInitial;
                 req.user.connected = true;
+                req.user.partner = User.firstname + User.middleInitial;
             }
         })
     }
@@ -60,8 +62,10 @@ router.get('/connect',function(req,res){
                 });*/
             }
             else{
-                User.connected = true;
+                 User.connected = true;
+                User.partner = req.user.firstName + req.user.middleInitial;
                 req.user.connected = true;
+                req.user.partner = User.firstname + User.middleInitial;
             }
         }) 
     }

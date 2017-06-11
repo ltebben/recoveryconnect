@@ -10,7 +10,9 @@ var userSchema = new mongoose.Schema({
     sobriety_year: Number,
     sobriety_month: Number,
     sobriety_date: Date,
-    connected: Boolean
+    connected: Boolean,
+    partner: String,
+    posted_message: [{message: String, date: Date()}]
 });
 
 module.exports = mongoose.model("User", userSchema);
