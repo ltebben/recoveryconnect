@@ -1,6 +1,5 @@
 var env = require('./env');
 var express = require('express');
-var session = require('express-session');
 var User = require('./models/user');
 var router = express.Router();
 var GoogleAuth = require('google-auth-library');
@@ -44,9 +43,9 @@ router.use('/signup', function(req,res){
 
     saved.then(function(result){
         if(result == 'saved'){
-            res.send('saveew');
+            res.render('start');
         }else if('did not save'){
-            res.send('femk')
+            res.render('/');
         } else {
             res.send('ruffalo');
         }

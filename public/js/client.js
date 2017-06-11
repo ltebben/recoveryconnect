@@ -1,6 +1,5 @@
 function onSignIn(user){
     var profile = user.getBasicProfile();
-    console.log(JSON.stringify(profile));
     var id_token = profile.getEmail()//user.getAuthResponse().id_token;
    
    //put the google id into the form
@@ -15,10 +14,11 @@ function onSignIn(user){
         var xhr = new XMLHttpRequest();
         xhr.open('POST', 'http://localhost:3000/api/exists');
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        xhr.withCredentials = true;
         xhr.onload = function() {
             if(xhr.responseText == "exists"){
                 document.querySelector('form.signup').classList.add('hide');
-                window.location.href = '/dashboard'
+                window.location.href = '/api/dashboard'
             }
         };
         xhr.send('id_token=' + id_token);
