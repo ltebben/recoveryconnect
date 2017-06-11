@@ -26,7 +26,7 @@ router.use('/signup', function(req,res){
         neighborhood : req.body.neighborhood,
         gender : req.body.gender,
         age : parseInt(req.body.age),
-        sobriety_date : Date(parseInt(req.body.sobriety_year), parseInt(req.body.sobriety_month))
+        sobriety_date : Date(req.body.sobriety_year, req.body.sobriety_month)
     });
     
 
