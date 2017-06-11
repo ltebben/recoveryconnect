@@ -1,0 +1,13 @@
+extends layout
+
+block content
+  div.dash
+    h1 Your Conversation
+    ul
+      each val in messages
+        li= val
+  
+
+block append head
+  link(rel="stylesheet", href="dashboard.css")
+  link(href="https://fonts.googleapis.com/css?family=Roboto", rel="stylesheet")
