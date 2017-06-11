@@ -188,19 +188,22 @@ router.use('/exists',function(req,res){
 });
 
 router.use('/sendMessage',function(req,res){
-    console.log(`got msg post with:
-        email: ${req.body.email}
-        msg: ${req.body.message}
-    `);
     var recipient = User.find({user_id: req.body.email});
-    console.log('a');
     var promise = recipient.exec();
     promise.then(function (data) {
-        console.log(data)
         if (JSON.stringify(data).length > 3) {
-            data.received_messages.concat({ message: req.body.email, date: Date });
-            console.log("made it here")
-            res.render('dashboard', { partner: data.firstName, messages: data.received_messages });
+            console.log("old messages" + data[0].posted_message);
+            var temp = data[0].posted_message.concat([{ message: req.body.message, date: Date.now() }]);
+            console.log("old + new: " + JSON.stringify(temp));
+            User.update({user_id: req.body.email}, {$set: {posted_message: temp}},function(err,changedCount){
+                if(!err){
+                    console.log('num changed: ' + JSON.stringify(changedCount));
+                }
+                else{
+                    console.log('err: ' + err);
+                }
+            });
+            //res.render('dashboard', { partner: data.firstName, messages: data.posted_message });
 
             //data.received_messages.concat(req.body.message);
             res.send('success');
