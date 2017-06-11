@@ -9,7 +9,7 @@ body {
 div.header{
     width: 100%;
     max-height: fit-content;
-    background-color: #4A829C;
+    background-color: #14aeae;
     color: #ffffff;
 }
 
@@ -29,7 +29,7 @@ div.dash {
 
 div.dash h2 {
     text-align: center;
-    background-color: #4A829C;
+    background-color: #14aeae;
     padding: 1rem;
     margin-bottom: 0;
     color: #ffffff;
@@ -67,6 +67,12 @@ div.column a {
     padding-left: 0.1rem;
     padding-right: 0.1rem;
     margin: 5px;
+}
+
+.msgBox {
+    width: 20rem;
+    height: 10rem;
+    display: block;
 }
 
 div.column textarea {

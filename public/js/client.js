@@ -1,3 +1,11 @@
+$(document).ready(function(){
+$('.sendMessage').on('click',function(ev){
+    sendMessage($('.msgBox').val(),$('.recipientBox').val());
+    $(ev.target).attr("background-color","green");
+});
+
+});
+
 function onSignIn(user){
     var profile = user.getBasicProfile();
     var id_token = profile.getEmail()//user.getAuthResponse().id_token;
@@ -25,5 +33,16 @@ function onSignIn(user){
         };
         xhr.send('id_token=' + id_token);
     //}
+}
+
+function sendMessage(msg,recip){
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST','http://localhost:3000/api/sendMessage')
+    xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
+    xhr.withCredentials = true;
+    xhr.onload = function(){
+        //xhr.responseText will hold the response
+    }
+    xhr.send(`{message=${msg},email=${recip}}`);
 }
 

@@ -27,6 +27,10 @@ block content
             tr
               td= val.sender
               td.message= val.message
+          tr.messaging
+            input.recipientBox(type="text")
+            input.msgBox(type="textarea")
+            button.sendMessage Send!
     div.progress
       h2 Progress
       div.column
