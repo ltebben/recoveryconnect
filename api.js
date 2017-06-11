@@ -97,23 +97,32 @@ router.get('/connection',function(req,res){
 });
 
 router.use('/dashboard',function(req,res){
-    console.log("id: " + req.session.email)
     var query = User.findOne({user_id:req.session.email});
     var promise = query.exec();
     var retVal = promise.then(function(data){
-        console.log('data in dashboard: ' + JSON.stringify(data));
         if(JSON.stringify(data).length > 3){
-            console.log("hello")
             var sent_msgs = data.posted_message;
-            console.log("second")
-            //var received_msgs = data.partner.posted_messages;
-            //var msgs = sent_msgs + received_msgs;
-            //console.log("medium hello")
-            //msgs.sort(function(a,b){
-            //    return a.date > b.date ? -1 : a.date < b.date ? 1 : 0;
-            //});
-            console.log("hello again");
-            res.render('dashboard', {messages: sent_msgs});
+            console.log(sent_msgs)
+            var partner_email = data.partner;
+            var p_query = User.findOne({ user_id:partner_email });
+            var p_promise = p_query.exec();
+            p_promise.then(function (data2) {
+                if (JSON.stringify(data2).length > 3) {
+                    var p_received_msgs = data2.posted_message;
+                    for (ms in p_received_msgs) {
+                        ms.sender = data2.firstName;
+                    }
+                    var msgs = sent_msgs.concat(p_received_msgs);
+                    msgs = msgs.sort(function (a,b){
+                        return b.date - a.date;
+                    });
+                    
+                    res.render('dashboard', { partner: data.firstName, messages: msgs });
+                  } else {
+                    console.log('No messages found');
+                }
+
+            });
         }else{
             res.send('not found');
         }
@@ -134,11 +143,9 @@ router.use('/exists',function(req,res){
 //takes a user id token and checks if it's in the db
 //if in the db, returns true, else false.
 function userExists(userId,res){
-    console.log('id: ' + userId);
     var query = User.find({user_id:userId});
     var promise = query.exec();
     var retVal = promise.then(function(data){
-        console.log('data: ' + JSON.stringify(data));
         if(JSON.stringify(data).length > 3){
             res.send('exists');
         }else{
