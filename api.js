@@ -163,8 +163,10 @@ router.use('/dashboard',function(req,res){
                     msgs = msgs.sort(function (a,b){
                         return b.date - a.date;
                     });
+
+                    var Sober = Math.floor((new Date() - data.sobriety_date)/(1000*60*60*24));
                     
-                    res.render('dashboard', { partner: data.firstName, messages: msgs });
+                    res.render('dashboard', { partner: data.firstName, messages: msgs, days_sober: Sober });
                   } else {
                     console.log('No messages found');
                 }
