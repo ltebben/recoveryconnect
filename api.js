@@ -47,9 +47,9 @@ router.get('/connect',function(req,res){
             }
             else{
                 User.connected = true;
-                User.partner = req.user.firstName + req.user.middleInitial;
-                req.user.connected = true;
-                req.user.partner = User.firstname + User.middleInitial;
+                User.partner = req.user_id;
+                req.connected = true;
+                req.partner = User.user_id;
             }
         })
     }
@@ -64,9 +64,9 @@ router.get('/connect',function(req,res){
             }
             else{
                 User.connected = true;
-                User.partner = req.user.firstName + req.user.middleInitial;
-                req.user.connected = true;
-                req.user.partner = User.firstname + User.middleInitial;
+                User.partner = req.user_id;
+                req.connected = true;
+                req.partner = User.user_id;
             }
         }) 
     }
