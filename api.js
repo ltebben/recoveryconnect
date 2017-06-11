@@ -36,6 +36,7 @@ router.use('/signup', function(req,res){
                 resolve('saved');
                 //res.render('dashboard');
             }else{
+                console.log('error saving: ' + err);
                 resolve('did not save');
             }
         });
@@ -45,7 +46,7 @@ router.use('/signup', function(req,res){
         if(result == 'saved'){
             res.render('start');
         }else if('did not save'){
-            res.render('/');
+            res.redirect('/');
         } else {
             res.send('ruffalo');
         }

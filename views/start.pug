@@ -1,5 +1,15 @@
 extends layout
 
+mixin getMonths()
+    for month in ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+        option(value=month)= month
+
+mixin getRange(start,end)
+    - var i = end;
+    while i > start && start < end
+        option(value=i)= i--
+
+
 block content
     h1 Get Started
     div.field
@@ -7,20 +17,28 @@ block content
         <div class="g-signin2" data-onsuccess="onSignIn"></div>
         form.signup(action="/api/signup" method="post")
             label(for="user_id") Email:
-                input.hide(type="text",name="user_id", value="")
+                input.hide(type="text",name="user_id", required="true")
             label(for="firstName") First Name:
-                input(type="text", name="firstName")
+                input(type="text", name="firstName", required="true")
+            label(for="middleInitial") Middle Initial:
+                input(type="text", maxlengtth="1", name="middleInitial", required="true")
             label(for="age") Age:
-                input(type="text", name="age")
+                select(name="age", required="true")
+                    +getRange(9,99)
+            </br>
             label(for="gender") Gender:
-                input(type="text", name="gender")
+                <input type="radio" name="gender" value="female" checked="true">Female</input>
+                <input type="radio" name="gender" value="male">Male</input><br/>
             label(for="neighborhood") Neighborhood:
-                input(type="text", name="neighborhood")
+                input(type="text", name="neighborhood", required="true")
             label(for="sobrmnth") Sobriety Month:
-                input(type="text", name="sobriety_month")
+                select(name="sobriety_month", required="true")
+                    +getMonths()
             label(for="sobryr") Sobriety Year: 
-                input(type="text", name="sobriety_year")
+                select(name="sobriety_year", required="true")
+                    +getRange(1920,(new Date()).getFullYear())
             input(type="submit", value="Sign Up!")
+
 
 block append head
     link(rel="stylesheet", href="start.css")
