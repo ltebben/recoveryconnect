@@ -194,21 +194,30 @@ router.use('/sendMessage',function(req,res){
     var promise = recipient.exec();
     promise.then(function (data) {
         if (JSON.stringify(data).length > 3) {
-            console.log("old messages" + data[0].posted_message);
             var temp = data[0].posted_message.concat([{ message: req.body.message, date: Date.now() }]);
-            console.log("old + new: " + JSON.stringify(temp));
-            User.update({user_id: req.body.email}, {$set: {posted_message: temp}},function(err,changedCount){
-                if(!err){
-                    console.log('num changed: ' + JSON.stringify(changedCount));
-                }
-                else{
-                    console.log('err: ' + err);
-                }
-            });
-            //res.render('dashboard', { partner: data.firstName, messages: data.posted_message });
+            var partner_email = data[0].partner;
+            var p_query = User.findOne({ user_id:partner_email });
+            var p_promise = p_query.exec();
+            p_promise.then(function (data2) {
+                if (JSON.stringify(data2).length > 3) {
+                    var p_received_msgs = data2.posted_message;
+                    console.log(p_received_msgs);
+                    User.update({ user_id: data2.user_id }, { $set: { posted_message: temp } }, function (err, changedCount) {
+                        if (!err) {
+                            console.log('num changed: ' + JSON.stringify(changedCount));
+                        }
+                        else {
+                            console.log('err: ' + err);
+                        }
+                    });
 
-            //data.received_messages.concat(req.body.message);
-            res.send('success');
+                    res.render('dashboard', { partner: data.firstName, messages: msgs, days_sober: Sober });
+                } else {
+                    console.log('No messages found');
+                }
+
+            });
+            
         }else{
             console.log("no user")
             res.send('not found');
