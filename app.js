@@ -32,7 +32,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(session());
+app.use(session({
+  secret: env.SECRET
+}));
 //load style preprocessing middleware
 app.use(require('node-sass-middleware')({
   root: path.join('public','stylesheets'),
