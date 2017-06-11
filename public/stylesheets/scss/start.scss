@@ -25,6 +25,11 @@ div.field {
     background-color: rgba(100, 100, 100, 0.5);
     max-width: 40rem;
     padding: 1rem;
+    text-align: center;
+}
+
+.g-signin2 {
+    display: inline-block;
 }
 
 div.field p {
@@ -36,12 +41,23 @@ div.field p {
 }
 
 .signup {
+    text-align: left;
     margin: 1rem;
     border: 2px solid grey;
     padding: 1.5rem;
 }
 
+.signup * {
+    margin-left: 1.2rem;
+}
+
 .signup input {
     display: block;
     margin: 1rem;
+    padding: 0.4rem 1rem 0.4rem 0.3rem;
+}
+
+.signup input[type="radio"] {
+    display: inline-block;
+    margin: 0.5rem;
 }
