@@ -194,14 +194,12 @@ router.use('/sendMessage',function(req,res){
     var promise = recipient.exec();
     promise.then(function (data) {
         if (JSON.stringify(data).length > 3) {
-            var temp = data[0].posted_message.concat([{ message: req.body.message, date: Date.now() }]);
             var partner_email = data[0].partner;
             var p_query = User.findOne({ user_id:partner_email });
             var p_promise = p_query.exec();
             p_promise.then(function (data2) {
                 if (JSON.stringify(data2).length > 3) {
-                    var p_received_msgs = data2.posted_message;
-                    console.log(p_received_msgs);
+                    var temp = data2.posted_message.concat([{ message: req.body.message, date: Date.now() }]);
                     User.update({ user_id: data2.user_id }, { $set: { posted_message: temp } }, function (err, changedCount) {
                         if (!err) {
                             console.log('num changed: ' + JSON.stringify(changedCount));
